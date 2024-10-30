@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:06:54 by jbergos           #+#    #+#             */
-/*   Updated: 2024/10/29 02:33:55 by jbergos          ###   ########.fr       */
+/*   Updated: 2024/10/30 01:11:57 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,22 @@ char	*ft_cpy_line(char *src, size_t size)
 	ptr[i] = '\0';
 	return (ptr);
 }
+size_t ft_strlen(char *s)
+{
+	size_t i;
+
+	i = 0;
+	while(s[i])
+		++i;
+	return (i);
+}
 
 char	*ft_cut_buffer(char *buff, size_t start)
 {
 	size_t	i;
 	char	*ptr;
 
-	ptr = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	ptr = malloc(sizeof(char) * ft_strlen(buff) + 1);
 
 	i = 0;
 	while (buff[i + start])
@@ -42,22 +51,12 @@ char	*ft_cut_buffer(char *buff, size_t start)
 		ptr[i] = buff[i + start];
 		++i;
 	}
-	while(i < BUFFER_SIZE)
+	while(i < ft_strlen(buff))
 	{
 		ptr[i] = '\0';
 		++i;
 	}
 	return (ptr);
-}
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		++i;
-	return (i);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -85,4 +84,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	ptr[i + j] = '\0';
 	return (ptr);
+}
+
+char	*ft_end_buffer(char *s)
+{
+	char *ptr;
+	free(s);
+	ptr = malloc(sizeof(char) * 2);
+	ptr[0] = -1;
+	ptr[1] = '\0';
+	return ptr;
+}
+
+char	*ft_strdup()
+{
+	char *ptr;
+
+	ptr = malloc(sizeof(char) * 1);
+	ptr[0] = '\0';
+	return ptr;
 }
