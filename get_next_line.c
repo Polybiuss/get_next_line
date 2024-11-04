@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 07:05:33 by jbergos           #+#    #+#             */
-/*   Updated: 2024/11/04 10:40:35 by jbergos          ###   ########.fr       */
+/*   Updated: 2024/11/04 23:18:08 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char	*buffering(int fd, char *buffer)
 {
 	char	*ptr;
-	ssize_t	read_bytes;
+	int		read_bytes;
 
 	ptr = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!ptr)
@@ -34,7 +34,7 @@ char	*buffering(int fd, char *buffer)
 			break ;
 	}
 	free(ptr);
-	if (!ft_strlen(buffer))
+	if (!ft_strlen(buffer) || read_bytes == -1)
 	{
 		free(buffer);
 		return (NULL);
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	buffer = cut_line(buffer);
 	return (line);
 }
-
+/*
 int main(void)
 {
 	int	fd = open("text.text", O_RDONLY);
@@ -128,4 +128,4 @@ int main(void)
 	// printf("%s", get_next_line(fd));
 	close(fd);
 	return (0);
-}
+}*/
