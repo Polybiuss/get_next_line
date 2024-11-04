@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 23:27:41 by jbergos           #+#    #+#             */
-/*   Updated: 2024/10/31 04:52:37 by jbergos          ###   ########.fr       */
+/*   Updated: 2024/11/04 10:27:38 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*ft_cpy_line(char *src, size_t size);
-char	*ft_cut_buffer(char *buff, size_t start);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_end_buffer(char *s);
-char	*get_next_line(int fd);
 size_t	ft_strlen(char *s);
+char	*add_ptr(char *s1, char *s2);
+char	*ft_strchr(char *s, int c);
+size_t	ft_strlcpy(char *dst, char *src, size_t size);
+char	*ft_substr(char *s, size_t start, size_t len);
+char	*buffering(int fd, char *buffer);
+char	*cut_line(char *s);
+char	*find_line(char *s);
+char	*get_next_line(int fd);
 #endif

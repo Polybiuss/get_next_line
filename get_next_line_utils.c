@@ -5,30 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 22:06:54 by jbergos           #+#    #+#             */
-/*   Updated: 2024/10/31 05:07:55 by jbergos          ###   ########.fr       */
+/*   Created: 2024/11/04 07:14:23 by jbergos           #+#    #+#             */
+/*   Updated: 2024/11/04 10:17:41 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_cpy_line(char *src, size_t size)
-{
-	size_t	i;
-	char	*ptr;
-
-	ptr = malloc(sizeof(char) * (size + 1));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		ptr[i] = src[i];
-		++i;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
 
 size_t	ft_strlen(char *s)
 {
@@ -40,37 +22,13 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_cut_buffer(char *buff, size_t start)
+char	*add_ptr(char *s1, char *s2)
 {
-	size_t	i;
 	char	*ptr;
-
-	ptr = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	i = 0;
-	while (buff[i + start])
-	{
-		ptr[i] = buff[i + start];
-		++i;
-	}
-	while (i < BUFFER_SIZE)
-	{
-		ptr[i] = '\0';
-		++i;
-	}
-	ptr[i] = '\0';
-	free(buff);
-	return (ptr);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	len;
 	size_t	i;
 	size_t	j;
-	char	*ptr;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
-	ptr = malloc(sizeof(char) * (len + 1));
+	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -85,8 +43,56 @@ char	*ft_strjoin(char *s1, char *s2)
 		ptr[i + j] = s2[j];
 		++j;
 	}
-	free(s1);
-	free(s2);
 	ptr[i + j] = '\0';
+	free(s1);
+	return (ptr);
+}
+
+char	*ft_strchr(char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return (s + i);
+		++i;
+	}
+	if (s[i] == (char)c)
+		return (s + i);
+	return (NULL);
+}
+
+size_t	ft_strlcpy(char	*dst, char	*src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (i < size - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		++i;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}
+
+char	*ft_substr(char	*s, size_t start, size_t len)
+{
+	char	*ptr;
+	size_t	len_s;
+
+	len_s = ft_strlen(s);
+	if (!len_s || len_s < start)
+		return (NULL);
+	if (len_s - start < len)
+		len = len_s - start;
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	ft_strlcpy(ptr, s + start, len + 1);
 	return (ptr);
 }
