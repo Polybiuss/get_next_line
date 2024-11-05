@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 07:05:33 by jbergos           #+#    #+#             */
-/*   Updated: 2024/11/04 23:36:33 by jbergos          ###   ########.fr       */
+/*   Updated: 2024/11/04 23:53:54 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*buffering(int fd, char *buffer)
 {
@@ -84,24 +84,24 @@ char	*find_line(char	*s)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*buffer = NULL;
+	static char	*buffer[1024];
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	if (!buffer)
+	if (!buffer[fd])
 	{
-		buffer = malloc(sizeof(char) * 1);
-		if (!buffer)
+		buffer[fd] = malloc(sizeof(char) * 1);
+		if (!buffer[fd])
 			return (NULL);
-		buffer[0] = '\0';
+		buffer[fd][0] = '\0';
 	}
-	buffer = buffering(fd, buffer);
-	if (!buffer)
+	buffer[fd] = buffering(fd, buffer[fd]);
+	if (!buffer[fd])
 	{
 		return (NULL);
 	}
-	line = find_line(buffer);
-	buffer = cut_line(buffer);
+	line = find_line(buffer[fd]);
+	buffer[fd] = cut_line(buffer[fd]);
 	return (line);
 }
 /*
