@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 07:05:33 by jbergos           #+#    #+#             */
-/*   Updated: 2024/11/04 23:53:54 by jbergos          ###   ########.fr       */
+/*   Updated: 2024/11/05 04:07:38 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ char	*get_next_line(int fd)
 	static char	*buffer[1024];
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
+	{
+		if (buffer[fd])
+			free(buffer[fd]);
 		return (NULL);
+	}
 	if (!buffer[fd])
 	{
 		buffer[fd] = malloc(sizeof(char) * 1);
